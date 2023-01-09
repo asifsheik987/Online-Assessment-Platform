@@ -23,12 +23,13 @@ public class UserController {
 	private UserServiceImpl service;
 
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('INSTRUCTOR') or hasAuthority('STUDENT')")
     public ResponseEntity<?> allAccess() {
         return ResponseEntity.status(HttpStatus.OK).body("Public Content.");
     }
 
     @GetMapping("/student")
-    @PreAuthorize("hasAuthority('INSTRUCTOR') or hasAuthority('STUDENT')")
+    @PreAuthorize("hasAuthority('STUDENT')")
     public ResponseEntity<?> userAccess() {
         return ResponseEntity.status(HttpStatus.OK).body("User Content.");
     }
